@@ -1,7 +1,6 @@
 package implementations;
 
 import exceptions.EmptyStackException;
-import exceptions.NoSuchElementException;
 import utilities.Iterator;
 import utilities.StackADT;
 
@@ -15,30 +14,36 @@ public class MyStack<E> implements StackADT<E> {
 
     @Override
     public void push(E toAdd) throws NullPointerException {
-        if (toAdd == null) throw new NullPointerException("Cannot push null");
+        if (toAdd == null) {
+            throw new NullPointerException("Cannot push null element to stack");
+        }
         stack.add(toAdd);
     }
 
     @Override
     public E pop() throws EmptyStackException {
-        if (isEmpty()) throw new EmptyStackException();
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
         return stack.remove(stack.size() - 1);
     }
 
     @Override
+    public E pop1() throws EmptyStackException {
+        return pop(); // Delegate to existing pop() implementation
+    }
+
+    @Override
     public E peek() throws EmptyStackException {
-        if (isEmpty()) throw new EmptyStackException();
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
         return stack.get(stack.size() - 1);
     }
 
     @Override
-    public E pop1() throws EmptyStackException {
-        return pop();
-    }
-
-    @Override
     public E peek1() throws EmptyStackException {
-        return peek();
+        return peek(); // Delegate to existing peek() implementation
     }
 
     @Override
@@ -54,7 +59,6 @@ public class MyStack<E> implements StackADT<E> {
     @Override
     public Object[] toArray() {
         Object[] array = new Object[size()];
-        // Fill array in reverse order (top to bottom)
         for (int i = 0; i < size(); i++) {
             array[i] = stack.get(size() - 1 - i);
         }
@@ -63,13 +67,14 @@ public class MyStack<E> implements StackADT<E> {
 
     @Override
     public E[] toArray(E[] holder) throws NullPointerException {
-        if (holder == null) throw new NullPointerException();
+        if (holder == null) {
+            throw new NullPointerException("Holder array cannot be null");
+        }
         
         if (holder.length < size()) {
             holder = (E[]) new Object[size()];
         }
         
-        // Fill array in reverse order (top to bottom)
         for (int i = 0; i < size(); i++) {
             holder[i] = stack.get(size() - 1 - i);
         }
@@ -83,15 +88,15 @@ public class MyStack<E> implements StackADT<E> {
 
     @Override
     public boolean contains(E toFind) throws NullPointerException {
-        if (toFind == null) throw new NullPointerException();
         return stack.contains(toFind);
     }
 
     @Override
     public int search(E toFind) {
-        if (toFind == null) throw new NullPointerException();
+        if (toFind == null) {
+            throw new NullPointerException("Cannot search for null element");
+        }
         
-        // 1-based position from top
         int position = 1;
         Iterator<E> iterator = iterator();
         while (iterator.hasNext()) {
@@ -119,7 +124,7 @@ public class MyStack<E> implements StackADT<E> {
         @Override
         public E next() {
             if (!hasNext()) {
-                throw new NoSuchElementException();
+                throw new exceptions.NoSuchElementException();
             }
             return stack.get(currentIndex--);
         }
@@ -127,11 +132,13 @@ public class MyStack<E> implements StackADT<E> {
 
     @Override
     public boolean equals(StackADT<E> that) {
-        if (that == null || this.size() != that.size()) return false;
-        
+        if (that == null || this.size() != that.size()) {
+            return false;
+        }
+
         Iterator<E> thisIterator = this.iterator();
         Iterator<E> thatIterator = that.iterator();
-        
+
         while (thisIterator.hasNext()) {
             if (!thisIterator.next().equals(thatIterator.next())) {
                 return false;
