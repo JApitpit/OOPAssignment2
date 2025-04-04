@@ -19,11 +19,13 @@ public class MyStack<E> implements StackADT<E> {
         stack.add(toAdd);
     }
 
+    @Override
     public E pop() throws EmptyStackException {
         if (isEmpty()) throw new EmptyStackException();
         return stack.remove(stack.size() - 1);
     }
 
+    @Override
     public E peek() throws EmptyStackException {
         if (isEmpty()) throw new EmptyStackException();
         return stack.get(stack.size() - 1);
