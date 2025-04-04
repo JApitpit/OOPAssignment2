@@ -1,7 +1,7 @@
 package implementations;
 
-import exceptions.NoSuchElementException;
 import exceptions.EmptyStackException;
+import exceptions.NoSuchElementException;
 import utilities.Iterator;
 import utilities.StackADT;
 
@@ -36,7 +36,7 @@ public class MyStack<E> implements StackADT<E> {
 
     @Override
     public E peek1() throws EmptyStackException {
-        return peek(); 
+        return peek();
     }
 
     @Override
@@ -52,8 +52,9 @@ public class MyStack<E> implements StackADT<E> {
     @Override
     public Object[] toArray() {
         Object[] array = new Object[size()];
+        // Fill array in reverse order (top to bottom)
         for (int i = 0; i < size(); i++) {
-            array[i] = stack.get(size() - 1 - i); // Reverse order for stack
+            array[i] = stack.get(size() - 1 - i);
         }
         return array;
     }
@@ -66,8 +67,9 @@ public class MyStack<E> implements StackADT<E> {
             holder = (E[]) new Object[size()];
         }
         
+        // Fill array in reverse order (top to bottom)
         for (int i = 0; i < size(); i++) {
-            holder[i] = stack.get(size() - 1 - i); 
+            holder[i] = stack.get(size() - 1 - i);
         }
         
         if (holder.length > size()) {
@@ -87,6 +89,7 @@ public class MyStack<E> implements StackADT<E> {
     public int search(E toFind) {
         if (toFind == null) throw new NullPointerException();
         
+        // 1-based position from top
         int position = 1;
         Iterator<E> iterator = iterator();
         while (iterator.hasNext()) {
@@ -114,7 +117,7 @@ public class MyStack<E> implements StackADT<E> {
         @Override
         public E next() {
             if (!hasNext()) {
-                throw new exceptions.NoSuchElementException();
+                throw new NoSuchElementException();
             }
             return stack.get(currentIndex--);
         }

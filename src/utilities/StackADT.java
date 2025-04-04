@@ -2,7 +2,7 @@ package utilities;
 
 import java.util.*;
 import java.io.*;
-import exceptions.EmptyStackException;
+
 /**
  * This is the professional Stack Interface for Object-Oriented Programming 3
  * (CRPG 304) at the SAIT Polytechnic. This Stack embodies all the standard
@@ -19,15 +19,6 @@ public interface StackADT<E> extends Serializable
 	 * @throws NullPointerException when attempting to add a null element to the
 	 *                              stack.
 	 */
-	 public E pop1() throws EmptyStackException;
-
-	    /**
-	     * Looks at the object at the top of this stack without removing it.
-	     * @return the object at the top of this stack.
-	     * @throws EmptyStackException if stack is empty.
-	     */
-	    public E peek1() throws EmptyStackException;
-	    
 	public void push( E toAdd ) throws NullPointerException;
 
 	/**
@@ -37,7 +28,21 @@ public interface StackADT<E> extends Serializable
 	 * @return the item popped off the top of the stack.
 	 * @throws EmptyStackException if there are not items in the stack.
 	 */
+	public E pop() throws EmptyStackException;
 
+	/**
+	 * Looks at the object at the top of this stack without removing it from the
+	 * stack.
+	 * 
+	 * @return the object at the top of this stack.
+	 * @throws EmptyStackException
+	 */
+	public E peek() throws EmptyStackException;
+
+	/**
+	 * Clears all the items from this Stack. This method returns, unless there is an
+	 * Exception (Runtime) thrown.
+	 */
 	public void clear();
 
 	/**
