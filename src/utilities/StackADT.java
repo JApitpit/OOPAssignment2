@@ -37,21 +37,7 @@ public interface StackADT<E> extends Serializable
 	 * @return the item popped off the top of the stack.
 	 * @throws EmptyStackException if there are not items in the stack.
 	 */
-	public E pop() throws EmptyStackException;
 
-	/**
-	 * Looks at the object at the top of this stack without removing it from the
-	 * stack.
-	 * 
-	 * @return the object at the top of this stack.
-	 * @throws EmptyStackException
-	 */
-	public E peek() throws EmptyStackException;
-
-	/**
-	 * Clears all the items from this Stack. This method returns, unless there is an
-	 * Exception (Runtime) thrown.
-	 */
 	public void clear();
 
 	/**

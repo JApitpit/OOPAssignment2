@@ -1,6 +1,8 @@
 package implementations;
 
+import exceptions.NoSuchElementException;
 import exceptions.EmptyStackException;
+import utilities.Iterator;
 import utilities.StackADT;
 
 public class MyStack<E> implements StackADT<E> {
@@ -17,16 +19,24 @@ public class MyStack<E> implements StackADT<E> {
         stack.add(toAdd);
     }
 
-    @Override
     public E pop() throws EmptyStackException {
         if (isEmpty()) throw new EmptyStackException();
         return stack.remove(stack.size() - 1);
     }
 
-    @Override
     public E peek() throws EmptyStackException {
         if (isEmpty()) throw new EmptyStackException();
         return stack.get(stack.size() - 1);
+    }
+
+    @Override
+    public E pop1() throws EmptyStackException {
+        return pop();
+    }
+
+    @Override
+    public E peek1() throws EmptyStackException {
+        return peek(); 
     }
 
     @Override
@@ -41,46 +51,81 @@ public class MyStack<E> implements StackADT<E> {
 
     @Override
     public Object[] toArray() {
-        return stack.toArray();
+        Object[] array = new Object[size()];
+        for (int i = 0; i < size(); i++) {
+            array[i] = stack.get(size() - 1 - i); // Reverse order for stack
+        }
+        return array;
     }
 
     @Override
     public E[] toArray(E[] holder) throws NullPointerException {
-        return stack.toArray(holder);
+        if (holder == null) throw new NullPointerException();
+        
+        if (holder.length < size()) {
+            holder = (E[]) new Object[size()];
+        }
+        
+        for (int i = 0; i < size(); i++) {
+            holder[i] = stack.get(size() - 1 - i); 
+        }
+        
+        if (holder.length > size()) {
+            holder[size()] = null;
+        }
+        
+        return holder;
     }
 
     @Override
     public boolean contains(E toFind) throws NullPointerException {
+        if (toFind == null) throw new NullPointerException();
         return stack.contains(toFind);
     }
 
     @Override
     public int search(E toFind) {
-        // Manual iteration (no for-each loop)
-        utilities.Iterator<E> iterator = stack.iterator();
-        int distance = stack.size();
+        if (toFind == null) throw new NullPointerException();
         
+        int position = 1;
+        Iterator<E> iterator = iterator();
         while (iterator.hasNext()) {
-            E element = iterator.next();
-            if (element.equals(toFind)) {
-                return distance;
+            if (toFind.equals(iterator.next())) {
+                return position;
             }
-            distance--;
+            position++;
         }
         return -1;
     }
 
     @Override
-    public utilities.Iterator<E> iterator() {
-        return stack.iterator(); // Must return utilities.Iterator
+    public Iterator<E> iterator() {
+        return new StackIterator();
+    }
+
+    private class StackIterator implements Iterator<E> {
+        private int currentIndex = size() - 1;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex >= 0;
+        }
+
+        @Override
+        public E next() {
+            if (!hasNext()) {
+                throw new exceptions.NoSuchElementException();
+            }
+            return stack.get(currentIndex--);
+        }
     }
 
     @Override
     public boolean equals(StackADT<E> that) {
         if (that == null || this.size() != that.size()) return false;
         
-        utilities.Iterator<E> thisIterator = this.iterator();
-        utilities.Iterator<E> thatIterator = that.iterator();
+        Iterator<E> thisIterator = this.iterator();
+        Iterator<E> thatIterator = that.iterator();
         
         while (thisIterator.hasNext()) {
             if (!thisIterator.next().equals(thatIterator.next())) {
@@ -97,20 +142,6 @@ public class MyStack<E> implements StackADT<E> {
 
     @Override
     public boolean stackOverflow() {
-        return false; // Assuming dynamic sizing
+        return false;
     }
-
-	@Override
-	public E pop1() throws EmptyStackException
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public E peek1() throws EmptyStackException
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
