@@ -72,7 +72,7 @@ public class MyStack<E> implements StackADT<E> {
 
     @Override
     public utilities.Iterator<E> iterator() {
-        return stack.iterator(); // Must return utilities.Iterator
+        return stack.iterator();
     }
 
     @Override
@@ -97,20 +97,19 @@ public class MyStack<E> implements StackADT<E> {
 
     @Override
     public boolean stackOverflow() {
-        return false; // Assuming dynamic sizing
+        return false;
     }
 
-	@Override
-	public E pop1() throws EmptyStackException
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public E pop1() throws EmptyStackException {
+        if (isEmpty()) throw new EmptyStackException();
+        return stack.remove(stack.size() - 1);
+    }
 
-	@Override
-	public E peek1() throws EmptyStackException
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public E peek1() throws EmptyStackException {
+        if (isEmpty()) throw new EmptyStackException();
+        return stack.get(stack.size() - 1);
+    }
+
 }
