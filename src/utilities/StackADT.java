@@ -19,7 +19,7 @@ public interface StackADT<E> extends Serializable
 	 * @throws NullPointerException when attempting to add a null element to the
 	 *                              stack.
 	 */
-	 public E pop1() throws EmptyStackException; // Now using your custom exception
+	 public E pop1() throws EmptyStackException;
 
 	    /**
 	     * Looks at the object at the top of this stack without removing it.
