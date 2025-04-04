@@ -18,13 +18,13 @@ public class MyStack<E> implements StackADT<E> {
     }
 
     @Override
-    public E pop() throws EmptyStackException {
+    public E pop() {
         if (isEmpty()) throw new EmptyStackException();
         return stack.remove(stack.size() - 1);
     }
 
     @Override
-    public E peek() throws EmptyStackException {
+    public E peek() {
         if (isEmpty()) throw new EmptyStackException();
         return stack.get(stack.size() - 1);
     }
@@ -36,7 +36,7 @@ public class MyStack<E> implements StackADT<E> {
 
     @Override
     public boolean isEmpty() {
-        return stack.isEmpty();
+        return stack.size() == 0;
     }
 
     @Override
@@ -56,7 +56,6 @@ public class MyStack<E> implements StackADT<E> {
 
     @Override
     public int search(E toFind) {
-        // Manual iteration (no for-each loop)
         utilities.Iterator<E> iterator = stack.iterator();
         int distance = stack.size();
         
@@ -101,15 +100,12 @@ public class MyStack<E> implements StackADT<E> {
     }
 
     @Override
-    public E pop1() throws EmptyStackException {
-        if (isEmpty()) throw new EmptyStackException();
-        return stack.remove(stack.size() - 1);
+    public E pop1() {
+        return pop();
     }
 
     @Override
-    public E peek1() throws EmptyStackException {
-        if (isEmpty()) throw new EmptyStackException();
-        return stack.get(stack.size() - 1);
+    public E peek1() {
+        return peek();
     }
-
 }
