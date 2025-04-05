@@ -1,19 +1,16 @@
 package exceptions;
 
+/**
+ * Custom unchecked exception to be thrown when a stack operation 
+ * is attempted on an empty stack.
+ */
 public class EmptyStackException extends RuntimeException {
-<<<<<<< Updated upstream
-    private static final long serialVersionUID = 1L;
-    
-    public EmptyStackException() {
-        super("Stack is empty");
-=======
 	private static final long serialVersionUID = 1L;
 
 	public EmptyStackException() {
         super("Stack is empty.");
->>>>>>> Stashed changes
     }
-    
+
     public EmptyStackException(String message) {
         super(message);
     }
