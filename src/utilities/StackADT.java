@@ -130,4 +130,3 @@ public interface StackADT<E> extends Serializable
 	 */
 	public boolean stackOverflow();
 }
-}
