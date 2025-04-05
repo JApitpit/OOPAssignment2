@@ -24,7 +24,7 @@ public class MyStack<E> implements StackADT<E> {
     @Override
     public E pop() throws EmptyStackException {
         if (isEmpty()) {
-            throw new EmptyStackException();  // No custom message
+            throw new EmptyStackException(); 
         }
         return stack.remove(stack.size() - 1);
     }
@@ -32,10 +32,11 @@ public class MyStack<E> implements StackADT<E> {
     @Override
     public E peek() throws EmptyStackException {
         if (isEmpty()) {
-            throw new EmptyStackException();  // No custom message
+            throw new EmptyStackException(); 
         }
         return stack.get(stack.size() - 1);
     }
+
     @Override
     public void clear() {
         stack.clear();
@@ -56,26 +57,25 @@ public class MyStack<E> implements StackADT<E> {
     }
 
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public E[] toArray(E[] holder) throws NullPointerException {
         if (holder == null) {
             throw new NullPointerException("Holder array cannot be null");
         }
-        
-        // Create a new array if the holder is too small
+
         if (holder.length < size()) {
             holder = (E[]) java.lang.reflect.Array.newInstance(
                 holder.getClass().getComponentType(), size());
         }
-        
+
         for (int i = 0; i < size(); i++) {
             holder[i] = stack.get(size() - 1 - i);
         }
-        
+
         if (holder.length > size()) {
             holder[size()] = null;
         }
-        
+
         return holder;
     }
 
@@ -89,7 +89,7 @@ public class MyStack<E> implements StackADT<E> {
         if (toFind == null) {
             throw new NullPointerException("Cannot search for null element");
         }
-        
+
         int position = 1;
         Iterator<E> iterator = iterator();
         while (iterator.hasNext()) {
@@ -117,7 +117,7 @@ public class MyStack<E> implements StackADT<E> {
         @Override
         public E next() {
             if (!hasNext()) {
-                throw new NoSuchElementException();  // java.util version
+                throw new NoSuchElementException(); 
             }
             return stack.get(currentIndex--);
         }
