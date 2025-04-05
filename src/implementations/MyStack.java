@@ -21,29 +21,20 @@ public class MyStack<E> implements StackADT<E> {
     }
 
     @Override
-    public E pop() throws EmptyStackException {
+    public E pop()  {
         if (isEmpty()) {
-            throw new EmptyStackException();
+        	;
         }
         return stack.remove(stack.size() - 1);
     }
 
-    @Override
-    public E pop1() throws EmptyStackException {
-        return pop(); // Delegate to existing pop() implementation
-    }
 
     @Override
-    public E peek() throws EmptyStackException {
+    public E peek()  {
         if (isEmpty()) {
-            throw new EmptyStackException();
+          ;
         }
         return stack.get(stack.size() - 1);
-    }
-
-    @Override
-    public E peek1() throws EmptyStackException {
-        return peek(); // Delegate to existing peek() implementation
     }
 
     @Override
