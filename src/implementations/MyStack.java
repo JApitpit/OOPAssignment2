@@ -24,7 +24,7 @@ public class MyStack<E> implements StackADT<E> {
     @Override
     public E pop() throws EmptyStackException {
         if (isEmpty()) {
-            throw new EmptyStackException("Cannot pop from empty stack");
+            throw new EmptyStackException();  // No custom message
         }
         return stack.remove(stack.size() - 1);
     }
@@ -32,11 +32,10 @@ public class MyStack<E> implements StackADT<E> {
     @Override
     public E peek() throws EmptyStackException {
         if (isEmpty()) {
-            throw new EmptyStackException("Cannot peek empty stack");
+            throw new EmptyStackException();  // No custom message
         }
         return stack.get(stack.size() - 1);
     }
-
     @Override
     public void clear() {
         stack.clear();
@@ -118,7 +117,7 @@ public class MyStack<E> implements StackADT<E> {
         @Override
         public E next() {
             if (!hasNext()) {
-                throw new exceptions.NoSuchElementException();
+                throw new NoSuchElementException();  // java.util version
             }
             return stack.get(currentIndex--);
         }
