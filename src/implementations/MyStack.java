@@ -1,7 +1,7 @@
 package implementations;
 
 import exceptions.EmptyStackException;
-import exceptions.NoSuchElementException;
+import java.util.NoSuchElementException;
 import utilities.Iterator;
 import utilities.StackADT;
 
@@ -56,7 +56,8 @@ public class MyStack<E> implements StackADT<E> {
         return array;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public E[] toArray(E[] holder) throws NullPointerException {
         if (holder == null) {
             throw new NullPointerException("Holder array cannot be null");
