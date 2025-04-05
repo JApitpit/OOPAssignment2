@@ -117,7 +117,7 @@ public class MyStack<E> implements StackADT<E> {
         @Override
         public E next() {
             if (!hasNext()) {
-                throw new NoSuchElementException();
+                throw new exceptions.NoSuchElementException();
             }
             return stack.get(currentIndex--);
         }
