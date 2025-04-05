@@ -1,6 +1,7 @@
 package implementations;
 
 import exceptions.EmptyStackException;
+import exceptions.NoSuchElementException;
 import utilities.Iterator;
 import utilities.StackADT;
 
@@ -21,18 +22,17 @@ public class MyStack<E> implements StackADT<E> {
     }
 
     @Override
-    public E pop()  {
+    public E pop() throws EmptyStackException {
         if (isEmpty()) {
-        	;
+            throw new EmptyStackException("Cannot pop from empty stack");
         }
         return stack.remove(stack.size() - 1);
     }
 
-
     @Override
-    public E peek()  {
+    public E peek() throws EmptyStackException {
         if (isEmpty()) {
-          ;
+            throw new EmptyStackException("Cannot peek empty stack");
         }
         return stack.get(stack.size() - 1);
     }
@@ -62,8 +62,10 @@ public class MyStack<E> implements StackADT<E> {
             throw new NullPointerException("Holder array cannot be null");
         }
         
+        // Create a new array if the holder is too small
         if (holder.length < size()) {
-            holder = (E[]) new Object[size()];
+            holder = (E[]) java.lang.reflect.Array.newInstance(
+                holder.getClass().getComponentType(), size());
         }
         
         for (int i = 0; i < size(); i++) {
@@ -115,7 +117,7 @@ public class MyStack<E> implements StackADT<E> {
         @Override
         public E next() {
             if (!hasNext()) {
-                throw new exceptions.NoSuchElementException();
+                throw new NoSuchElementException();
             }
             return stack.get(currentIndex--);
         }
